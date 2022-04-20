@@ -9,12 +9,12 @@ for iϕ in eachindex(ϕs)
     p = numerator(ϕ)
     hd = Haldane()
     fname = joinpath(fpath,"data/p$(p)q$(q).txt")
-    constructHaldane(hd;ϕ=ϕ,lk=8,fname=fname)
+    constructHaldane(hd;ϕ=ϕ,lk=4,fname=fname)
 end
 
 ##
 function plot_ll(flag::Bool=false)
-    fig = figure(figsize=(8,7))
+    fig = figure(figsize=(8,6))
     for iϕ in eachindex(ϕs)
         ϕ = ϕs[iϕ]
         q = denominator(ϕ)

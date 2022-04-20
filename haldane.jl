@@ -50,17 +50,17 @@ function constructH(hd::Haldane)
         for r1 in 1:hd.q 
             k2 = hd.k2[i2] + (r1-1)/hd.q
             # BA
-            hd.H[r1,2,r1,1,i1,i2] = hd.params.t1 * (exp(1im*(π/2)*ϕ) + exp(-1im*(π/2)*ϕ+1im*2π*k2)) * exp(-1im *2π*(k1+k2)/3)
-            hd.H[r1,2,mod(r1+hd.p-1,hd.q)+1,1,i1,i2] = hd.params.t1 * (exp(-1im*2π*k1))* exp(-1im *2π*(k1+k2)/3)
+            hd.H[r1,2,r1,1,i1,i2] = hd.params.t1 * (exp(-1im*(π/6)*ϕ) + exp(1im*(π/6)*ϕ+1im*2π*k2)) * exp(-1im *2π*k2/3)
+            hd.H[r1,2,mod(r1+hd.p-1,hd.q)+1,1,i1,i2] = hd.params.t1 * (exp(1im*2π*k1-1im*π*ϕ))* exp(-1im *2π*k2/3)
             
             # AA
-            hd.H[r1,1,r1,1,i1,i2] = hd.params.t2 * (exp(1im*θ-1im*(2π/3)*ϕ+1im*2π*k2)) 
-            hd.H[r1,1,mod(r1+hd.p-1,hd.q)+1,1,i1,i2] = hd.params.t2 * (exp(-1im*θ - 1im*(5π/6)*ϕ - 1im*2π*k1) + 
-                                            exp(1im*θ + 1im*(5π/6)*ϕ - 1im*2π*(k1+k2)) )
+            hd.H[r1,1,r1,1,i1,i2] = hd.params.t2 * (exp(1im*θ-1im*(0)*ϕ+1im*2π*k2)) 
+            hd.H[r1,1,mod(r1+hd.p-1,hd.q)+1,1,i1,i2] = hd.params.t2 * (exp(-1im*θ - 1im*(π/2)*ϕ + 1im*2π*k1) + 
+                                            exp(1im*θ - 1im*(3π/2)*ϕ + 1im*2π*(k1-k2)) )
             # BB
-            hd.H[r1,2,r1,2,i1,i2] = hd.params.t2 * (exp(-1im*θ-1im*(4π/3)*ϕ+1im*2π*k2)) 
-            hd.H[r1,2,mod(r1+hd.p-1,hd.q)+1,2,i1,i2] = hd.params.t2 * (exp(1im*θ - 1im*(7π/6)*ϕ - 1im*2π*k1) + 
-                                            exp(-1im*θ + 1im*(7π/6)*ϕ - 1im*2π*(k1+k2)) )
+            hd.H[r1,2,r1,2,i1,i2] = hd.params.t2 * (exp(-1im*θ+1im*(2π/3)*ϕ+1im*2π*k2)) 
+            hd.H[r1,2,mod(r1+hd.p-1,hd.q)+1,2,i1,i2] = hd.params.t2 * (exp(1im*θ - 1im*(π/6)*ϕ + 1im*2π*k1) + 
+                                            exp(-1im*θ - 1im*(11π/6)*ϕ + 1im*2π*(k1-k2)) )
         end
     end
     H = reshape(hd.H,2hd.q,2hd.q,hd.lk,hd.lk)
