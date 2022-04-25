@@ -35,7 +35,7 @@ function constructHaldaneB0(hd::HaldaneB0;lk::Int=64)
     hd.lk = lk 
     hd.k1 = collect(0:(hd.lk-1)) ./ hd.lk 
     hd.k2 = collect(0:(hd.lk-1)) ./ hd.lk 
-    hd.params = Params(θ=-π/2)
+    hd.params = Params(θ=π/2)
 
     computeSpectrum(hd)
     ϵ_max = maximum(hd.ϵn)
@@ -91,22 +91,22 @@ end
 function H(k1::Float64,k2::Float64,params::Params)
     ϵ = params.t1 * (1 + cos(2π*k1) + cos(2π*k2)) * params.σx + 
         params.t1 * (sin(2π*k1) + sin(2π*k2)) * params.σy + 
-        params.t2 * cos(params.θ) * (cos(2π*k1) + cos(2π*k2) + cos(2π*(k2-k1))) * params.σ0 + 
-        params.t2 * sin(params.θ) * (sin(2π*k1) - sin(2π*k2) + sin(2π*(k2-k1))) * params.σz
+        2params.t2 * cos(params.θ) * (cos(2π*k1) + cos(2π*k2) + cos(2π*(k2-k1))) * params.σ0 + 
+        2params.t2 * sin(params.θ) * (sin(2π*k1) - sin(2π*k2) + sin(2π*(k2-k1))) * params.σz
     return ϵ
 end
 
 function ∂1H(k1::Float64,k2::Float64,params::Params)
     d1H = 2π * params.t1 * (-sin(2π*k1)*params.σx + cos(2π*k1)*params.σy) +
-          2π * params.t2 * cos(params.θ) * (-sin(2π*k1) + sin(2π*(k2-k1))) * params.σ0 + 
-          2π * params.t2 * sin(params.θ) * (cos(2π*k1) - cos(2π*(k2-k1))) * params.σz
+          4π * params.t2 * cos(params.θ) * (-sin(2π*k1) + sin(2π*(k2-k1))) * params.σ0 + 
+          4π * params.t2 * sin(params.θ) * (cos(2π*k1) - cos(2π*(k2-k1))) * params.σz
     return d1H
 end
 
 function ∂2H(k1::Float64,k2::Float64,params::Params)
     d2H = 2π * params.t1 * (-sin(2π*k2)*params.σx + cos(2π*k2)*params.σy) +
-          2π * params.t2 * cos(params.θ) * (-sin(2π*k2) - sin(2π*(k2-k1))) * params.σ0 + 
-          2π * params.t2 * sin(params.θ) * (-cos(2π*k2) + cos(2π*(k2-k1))) * params.σz
+          4π * params.t2 * cos(params.θ) * (-sin(2π*k2) - sin(2π*(k2-k1))) * params.σ0 + 
+          4π * params.t2 * sin(params.θ) * (-cos(2π*k2) + cos(2π*(k2-k1))) * params.σz
     return d2H
 end
 
