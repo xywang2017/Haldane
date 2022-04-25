@@ -72,7 +72,7 @@ function plot_orbital_magnetization_from_firsttwopoints_fixedN(flag=false)
                 # moment[iν] = (Eν[2] - Eν[1])/(ϕs[1]-ϕs[2]) *sqrt(3)/(4π) # in units of e/hbar
             end
         end
-        ax.plot(νs,moment,"-",c=colors[cnt],label="LL q$(q)")
+        ax.plot(νs,moment,".",c=colors[cnt],label="LL q$(q)",ms=2)
         cnt += 1
     end
 
