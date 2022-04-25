@@ -5,7 +5,7 @@ using DelimitedFiles
 @with_kw mutable struct Params 
     t1::Float64 = 1.0
     t2::Float64 = 0.2
-    θ::Float64 = π/2
+    θ::Float64 = 0.0
 end
 
 mutable struct Haldane 

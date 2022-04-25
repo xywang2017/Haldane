@@ -33,9 +33,9 @@ end
 
 function constructHaldaneB0(hd::HaldaneB0;lk::Int=64)
     hd.lk = lk 
-    hd.k1 = collect(0:(hd.lk-1)) ./ hd.lk 
-    hd.k2 = collect(0:(hd.lk-1)) ./ hd.lk 
-    hd.params = Params(θ=π/2)
+    hd.k1 = collect(0.5:(hd.lk-0.95)) ./ hd.lk 
+    hd.k2 = collect(0.5:(hd.lk-0.95)) ./ hd.lk 
+    hd.params = Params(θ=0.0)
 
     computeSpectrum(hd)
     ϵ_max = maximum(hd.ϵn)

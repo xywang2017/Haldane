@@ -7,7 +7,7 @@ fpath = pwd()
 function compute_spectrum()
     df = DataFrame() 
 
-    ϕs = collect(1:15) .// 31
+    ϕs = collect(1:15) .// 61
     for iϕ in eachindex(ϕs)
         ϕ = ϕs[iϕ]
         q = denominator(ϕ)
@@ -18,7 +18,7 @@ function compute_spectrum()
         df[!,"$(p)_$(q)"] = hd.spectrum[:]
     end
 
-    out_name = joinpath(fpath,"data/q31.csv")
+    out_name = joinpath(fpath,"data/q61_chern0.csv")
     CSV.write(out_name,df,delim=",")
 end
 compute_spectrum()
@@ -55,7 +55,7 @@ function plot_orbital_magnetization_from_firsttwopoints_fixedN(flag=false)
     colors = ["r","b","g"]
     cnt = 1
     for q in qs
-        df = DataFrame(CSV.File(joinpath(fpath,"data/q$(q).csv")))
+        df = DataFrame(CSV.File(joinpath(fpath,"data/q$(q)_chern0.csv")))
         ϕs = [1//q; 2//q]
         νs = collect(0:size(df,1)) ./(size(df,1)/2)
         moment = zeros(Float64,length(νs))
@@ -85,7 +85,7 @@ function plot_orbital_magnetization_from_firsttwopoints_fixedN(flag=false)
     tight_layout()
     display(fig)
     if (flag ==true)
-        fname = "M_vs_filling_chern_1_phase_LL_comparison_Niu.pdf"
+        fname = "M_vs_filling_chern_0_phase_LL_comparison_Niu.pdf"
         savefig(fname,dpi=500)
     end
     close(fig)
