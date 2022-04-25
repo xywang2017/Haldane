@@ -35,7 +35,7 @@ function constructHaldane(hd::Haldane;ϕ::Rational=1//10,lk::Int=1,fname="data.t
 
     constructH(hd)
     computeSpectrum(hd)
-    writeout(hd)
+    # writeout(hd)
 
     return nothing
 end
