@@ -7,32 +7,34 @@ fpath = pwd()
 function compute_spectrum()
     df = DataFrame() 
 
-    ϕs = collect(1:15) .// 61
+    ϕs = collect(1:103) .// 103
     for iϕ in eachindex(ϕs)
         ϕ = ϕs[iϕ]
-        q = denominator(ϕ)
+        q = denominator(ϕ) 
         p = numerator(ϕ)
         hd = Haldane()
         fname = joinpath(fpath,"data/p$(p)q$(q).txt")
         constructHaldane(hd;ϕ=ϕ,lk=1,fname=fname)
-        df[!,"$(p)_$(q)"] = hd.spectrum[:]
+        # df[!,"$(p)_$(q)"] = hd.spectrum[:]
     end
 
-    out_name = joinpath(fpath,"data/q61_chern0.csv")
+    out_name = joinpath(fpath,"data/q73_chern0.csv")
     CSV.write(out_name,df,delim=",")
 end
 compute_spectrum()
 ##
 function plot_ll(flag::Bool=false)
-    df = DataFrame(CSV.File(joinpath(fpath,"data/q97.csv")))
-    ϕs = [parse(Int,split(ϕnames,"_")[1])//parse(Int,split(ϕnames,"_")[2]) for ϕnames in names(df)]
-
+    # df = DataFrame(CSV.File(joinpath(fpath,"data/q173.csv")))
+    # ϕs = [parse(Int,split(ϕnames,"_")[1])//parse(Int,split(ϕnames,"_")[2]) for ϕnames in names(df)]
+    ϕs = collect(1:103) .// 103
     fig = figure(figsize=(8,6))
     for iϕ in eachindex(ϕs)
         ϕ = ϕs[iϕ]
         q = denominator(ϕ)
         p = numerator(ϕ)
-        ϵ = df[:,"$(p)_$(q)"]
+        fname = joinpath(fpath,"data/p$(p)q$(q).txt")
+        # ϵ = df[:,"$(p)_$(q)"]
+        ϵ = readdlm(fname)
         plot(ones(length(ϵ))*p/q,ϵ,"b.",ms=1)
     end
     xlabel(L"ϕ/ϕ_0")

@@ -4,7 +4,7 @@ using DelimitedFiles
 
 @with_kw mutable struct Params 
     t1::Float64 = 1.0
-    t2::Float64 = 0.2
+    t2::Float64 = -0.1
     θ::Float64 = 0.0
 end
 
@@ -35,7 +35,7 @@ function constructHaldane(hd::Haldane;ϕ::Rational=1//10,lk::Int=1,fname="data.t
 
     constructH(hd)
     computeSpectrum(hd)
-    # writeout(hd)
+    writeout(hd)
 
     return nothing
 end
